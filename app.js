@@ -16,7 +16,9 @@ app.use('/graphql', graphqlHttp({
   graphiql: true
 }));
 
+// Replace with your MongoDB string
 const connectionStr = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-crqqi.mongodb.net/${process.env.MONGO_DB}?retryWrites=true`;
+
 mongoose.connect(connectionStr, {
   useNewUrlParser: true
 })
