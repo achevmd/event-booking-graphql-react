@@ -22,7 +22,7 @@ class MainNavigation extends Component {
       <>
         <header className="main-navigation">
           <div className="main-navigation__logo">
-            <h1>Event Booking Project</h1>
+            <h1>EventBookingProject</h1>
           </div>
           <nav className="main-navigation__items">
             <ul>
