@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import './Auth.css';
-
+import AuthContext from '../context/auth-context';
 class AuthPage extends Component {
   state = {
     isLogin: true
   };
+
+  static contextType = AuthContext;
   constructor(props) {
     super(props);
     this.emailEl = React.createRef();
@@ -24,7 +26,6 @@ class AuthPage extends Component {
     e.preventDefault();
     const email = this.emailEl.current.value;
     const password = this.passwordEl.current.value;
-    console.log(email, password);
     if (email.trim().length === 0 || password.trim().length === 0) {
       return;
     }
@@ -55,8 +56,10 @@ class AuthPage extends Component {
       if (res.status !== 200 && res.status !== 201) {
         throw new Error('Failed!');
       }
-      console.log(res);
-      return res.data;
+      if (res.data.data.login.token) {
+        const {token, userId, tokenExpiration} = res.data.data.login;
+        this.context.login(token, userId, tokenExpiration);
+      }
     }).catch(err => {
       console.log(err);
     });
@@ -65,7 +68,7 @@ class AuthPage extends Component {
     const { isLogin } = this.state;
     return (
       <div className="auth-wrapper">
-        <h2 className="auth-form__title">{isLogin ? 'Signup' : 'Login'}</h2>
+        <h2 className="auth-form__title">{isLogin ? 'Login' : 'Signup'}</h2>
         <form className="auth-form" onSubmit={this.submitHandler}>
           <div className="form-control">
             <label htmlFor="email">E-mail</label>

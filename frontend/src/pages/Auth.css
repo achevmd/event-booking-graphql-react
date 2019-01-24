@@ -1,8 +1,8 @@
 .auth-wrapper {
   position: relative;
   margin: 10rem auto;
-  background-color: #404040;
-  color: #fff;
+  background-color: #f0dc6d;
+  color: #000;
   width: 50%;
   border-radius: 3px;
   padding: 1rem 1rem;
@@ -24,14 +24,21 @@
 }
 .form-control input {
   border-radius: 3px;
-  border: none;
-  padding: 0.3rem;
+  border: 1px solid #ccc;
+  padding: 0.7rem;
+  outline: none;
+}
+.form-control input:focus {
+  border-radius: 3px;
+  border: 1px solid #404040;
+  padding: 0.7rem;
 }
 .form-control {
   margin-bottom: 1rem;
 }
 .form-actions button {
   background-color: #5c5c5c;
+  color: #fff;
   border: none;
   border-radius: 3px;
   padding: 0.5rem 1rem;
@@ -43,6 +50,6 @@
 }
 .form-actions button:hover {
   box-shadow: none;
-  color: black;
-  background-color: #bdac4b;
+  color: white;
+  background-color: #404040;
 }

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FiAlignLeft, FiX } from 'react-icons/fi'
+
+import AuthContext from '../../context/auth-context'
 import './MainNavigation.css';
+
 
 class MainNavigation extends Component {
   constructor(props) {
@@ -19,31 +22,38 @@ class MainNavigation extends Component {
   }
   render() {
     return (
-      <>
-        <header className="main-navigation">
-          <div className="main-navigation__logo">
-            <h1>EventBookingProject</h1>
-          </div>
-          <nav className="main-navigation__items">
-            <ul>
-              <li><NavLink to="/auth">Authentication</NavLink></li>
-              <li><NavLink to="/events">Events</NavLink></li>
-              <li><NavLink to="/bookings">Bookings</NavLink></li>
-            </ul>
-          </nav>
-          <div onClick={this.handleNav} className="navigation-open-btn"><FiAlignLeft size="2rem" /></div>
-        </header>
-        <header className={this.state.isOpen ? 'mobile-navigation-open' : 'mobile-navigation'}>
-          <div onClick={this.handleNav} className="mobile-navigation__close-btn"><FiX size="2rem" /></div>
-          <nav className="mobile-navigation__items">
-            <ul>
-              <li><NavLink to="/auth">Authentication</NavLink></li>
-              <li><NavLink to="/events">Events</NavLink></li>
-              <li><NavLink to="/bookings">Bookings</NavLink></li>
-            </ul>
-          </nav>
-        </header>
-      </>
+      <AuthContext.Consumer>
+        {(context) => {
+          return (
+            <>
+              <header className="main-navigation">
+                <div className="main-navigation__logo">
+                  <h1>EventBookingProject</h1>
+                </div>
+                <nav className="main-navigation__items">
+                  <ul>
+                    <li><NavLink to="/auth">Authentication</NavLink></li>
+                    <li><NavLink to="/events">Events</NavLink></li>
+                    <li><NavLink to="/bookings">Bookings</NavLink></li>
+                  </ul>
+                </nav>
+                <div onClick={this.handleNav} className="navigation-open-btn"><FiAlignLeft size="2rem" /></div>
+              </header>
+              <header className={this.state.isOpen ? 'mobile-navigation-open' : 'mobile-navigation'}>
+                <div onClick={this.handleNav} className="mobile-navigation__close-btn"><FiX size="2rem" /></div>
+                <nav className="mobile-navigation__items">
+                  <ul>
+                    {!context.token && <li><NavLink to="/auth">Authentication</NavLink></li>}
+                    <li><NavLink to="/events">Events</NavLink></li>
+                    {context.token && <li><NavLink to="/bookings">Bookings</NavLink></li>}
+                  </ul>
+                </nav>
+              </header>
+            </>
+          );
+        }}
+
+      </AuthContext.Consumer>
     );
   }
 };
