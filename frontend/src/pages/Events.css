@@ -1,0 +1,28 @@
+.events-control {
+  background: linear-gradient(to right, #bea42f, #f0dc6d);
+  border-radius: 3px;
+  box-shadow: 1px 1px 5px rgb(0, 0, 0, 0.25);
+  margin-bottom: 1em;
+}
+.events-control button {
+  border: none;
+  border-radius: 3px 0px 0px 3px;
+  font: inherit;
+  cursor: pointer;
+  padding: 1em 0;
+  width: 50%;
+  background: transparent;
+  transition: 0.5s;
+}
+.events-control button:last-child {
+  border-radius: 0px 3px 3px 0px;
+}
+.events-control button:hover {
+  background: #fdec89;
+}
+.events-wrapper {
+  border: 1px solid #bea42f;
+  border-radius: 3px;
+  padding: 2em 0;
+  box-shadow: 1px 1px 5px rgb(0, 0, 0, 0.25);
+}

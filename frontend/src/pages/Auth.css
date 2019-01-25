@@ -53,3 +53,14 @@
   color: white;
   background-color: #404040;
 }
+@media only screen and (max-width: 768px) {
+  .auth-wrapper {
+    margin: 5rem auto;
+    width: 90%;
+  }
+  .form-control label,
+.form-control input {
+  display: block;
+  width: 90%;
+}
+}

@@ -16,7 +16,8 @@
   font-weight: lighter;
 }
 .main-navigation__items {
-  margin-left: 1.5rem;
+  margin-left: auto;
+  margin-right: 2rem;
 }
 .main-navigation__items ul {
   display: flex;
@@ -25,9 +26,10 @@
   padding: 0;
 }
 .main-navigation__items li {
-  margin: 0 1rem;
+  margin: 0rem;
 }
 .main-navigation__items a {
+  padding: 1em 1em;
   text-decoration: none;
   font-size: 20px;
   color: #ffffff;
@@ -40,7 +42,7 @@
   text-decoration: none;
   color: #bea42f;
 }
-.navigation-open-btn {
+.mobile-navigation__open-btn {
   display: none;
 }
 .mobile-navigation {
@@ -56,7 +58,7 @@
   overflow-x: hidden;
   transition: 0.5s;
 }
-.mobile-navigation-open {
+.mobile-navigation--open {
   position: relative;
   visibility: visible;
   height: 100%;
@@ -65,16 +67,15 @@
   z-index: 1;
   top: 0;
   right: 0;
-  border-left: 0.5px solid #fff;
   background-color: #f0dc6d;
   overflow-x: hidden;
   transition: 0.5s;
 }
 .mobile-navigation__close-btn {
   position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  color: #fff;
+  top: 1rem;
+  right: 1rem;
+  color: #000;
 }
 .mobile-navigation__items {
   margin-top: 100px;
@@ -86,11 +87,15 @@
 }
 .mobile-navigation__items li {
   margin: 0rem 0;
-  padding: 1rem;
-  border-top: 0.5px solid #404040;
+  padding: 1.5rem;
+  border-top: 1px solid #404040;
+  text-align: center;
+  color: #404040;
+  transition: 0.2s;
 }
 .mobile-navigation__items li:hover {
-  border-top: 0.5px solid #000;
+  border-top: 1px solid #fff;
+  background: #c4b459;
 }
 .mobile-navigation__items a {
   text-decoration: none;
@@ -103,12 +108,12 @@
 }
 .mobile-navigation__items a.active {
   text-decoration: none;
-  color: #000000;
+  color: #000;
   font-weight: normal;
 }
 /* FOR SMALLER SCREENS */
 @media only screen and (max-width: 1000px) {
-  .navigation-open-btn {
+  .mobile-navigation__open-btn {
     position: fixed;
     display: inline-block;
     top: 1rem;
@@ -116,5 +121,10 @@
   }
   .main-navigation__items {
     display: none;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .mobile-navigation--open {
+    width: 100%;
   }
 }

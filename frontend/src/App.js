@@ -42,7 +42,9 @@ class App extends Component {
               <Switch>
                 {token 
                   ? <Redirect path="/auth" to="/events" /> 
-                  : <Redirect path="/" to="/auth" exact />}
+                  : <Redirect path="/" to="/auth" exact />
+                  }
+                {!token && <Redirect path="/bookings" to="/auth"/>}
                 <Route path="/auth" component={AuthPage} />
                 <Route path="/events" component={EventsPage} />
                 {token && <Route path="/bookings" component={BookingsPage} />}

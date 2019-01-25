@@ -20,6 +20,12 @@ class MainNavigation extends Component {
       this.setState({ isOpen: true });
     }
   }
+  openNav = () => {
+    this.setState({isOpen: true});
+  }
+  closeNav = () => {
+    this.setState({isOpen: false});
+  }
   render() {
     return (
       <AuthContext.Consumer>
@@ -32,20 +38,30 @@ class MainNavigation extends Component {
                 </div>
                 <nav className="main-navigation__items">
                   <ul>
-                    <li><NavLink to="/auth">Authentication</NavLink></li>
-                    <li><NavLink to="/events">Events</NavLink></li>
-                    <li><NavLink to="/bookings">Bookings</NavLink></li>
-                  </ul>
-                </nav>
-                <div onClick={this.handleNav} className="navigation-open-btn"><FiAlignLeft size="2rem" /></div>
-              </header>
-              <header className={this.state.isOpen ? 'mobile-navigation-open' : 'mobile-navigation'}>
-                <div onClick={this.handleNav} className="mobile-navigation__close-btn"><FiX size="2rem" /></div>
-                <nav className="mobile-navigation__items">
-                  <ul>
                     {!context.token && <li><NavLink to="/auth">Authentication</NavLink></li>}
                     <li><NavLink to="/events">Events</NavLink></li>
-                    {context.token && <li><NavLink to="/bookings">Bookings</NavLink></li>}
+                    {context.token &&
+                      <>
+                        <li><NavLink to="/bookings">Bookings</NavLink></li>
+                        <li><button onClick={context.logout}>Logout</button></li>
+                      </>
+                    }
+                  </ul>
+                </nav>
+                <div onClick={this.openNav} className="mobile-navigation__open-btn"><FiAlignLeft size="2rem" /></div>
+              </header>
+              <header className={this.state.isOpen ? 'mobile-navigation--open' : 'mobile-navigation'}>
+                <div onClick={this.closeNav} className="mobile-navigation__close-btn"><FiX size="2rem" /></div>
+                <nav className="mobile-navigation__items">
+                  <ul>
+                    {!context.token && <li><NavLink to="/auth" onClick={this.closeNav}>Authentication</NavLink></li>}
+                    <li><NavLink to="/events" onClick={this.closeNav}>Events</NavLink></li>
+                    {context.token &&
+                      <>
+                        <li><NavLink to="/bookings" onClick={this.closeNav}>Bookings</NavLink></li>
+                        <li><button onClick={context.logout} >Logout</button></li>
+                      </>
+                    }
                   </ul>
                 </nav>
               </header>
