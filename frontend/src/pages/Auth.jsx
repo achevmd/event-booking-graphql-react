@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+
 import './Auth.css';
 import AuthContext from '../context/auth-context';
+import { login, createUser } from '../requests/auth';
+
 class AuthPage extends Component {
   state = {
     isLogin: true
@@ -29,35 +31,18 @@ class AuthPage extends Component {
     if (email.trim().length === 0 || password.trim().length === 0) {
       return;
     }
-    let reqBody = {
-      query: `
-        query {
-          login(email: "${email}", password: "${password}") {
-            userId
-            token
-            tokenExpiration
-          }
-        }
-      `
-    };
-    if (!this.state.isLogin) {
-      reqBody = {
-        query: `
-          mutation {
-            createUser(userInput: {email: "${email}", password: "${password}"}) {
-              _id
-              email
-            }
-          }
-        `
-      };
+    let req;
+    if (this.state.isLogin) {
+      req = login(email, password);
+    } else {
+      req = createUser(email, password);
     }
-    axios.post('http://localhost:8000/graphql', reqBody).then(res => {
+    req.then(res => {
       if (res.status !== 200 && res.status !== 201) {
         throw new Error('Failed!');
       }
       if (res.data.data.login.token) {
-        const {token, userId, tokenExpiration} = res.data.data.login;
+        const { token, userId, tokenExpiration } = res.data.data.login;
         this.context.login(token, userId, tokenExpiration);
       }
     }).catch(err => {

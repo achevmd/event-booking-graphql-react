@@ -1,13 +1,23 @@
 .modal {
-  position: fixed;
+  position: absolute;
+  overflow: auto;
   z-index: 1;
   width: 80%;
   background: #fefefe;
   border-radius: 3px;
   box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.25);
-  top: 20vh;
+  top: 10vh;
+  bottom: 10vh;
   left: 10%;
   animation: animatetop 0.4s;
+}
+.modal::-webkit-scrollbar {
+  width: 8px;
+  background-color: rgba(0, 0, 0, 0.50);
+}
+.modal::-webkit-scrollbar-thumb {
+  background: #404040;
+  border-radius: 10px;
 }
 .modal__header {
   padding: 1rem;
@@ -20,12 +30,12 @@
   font-weight: lighter;
 }
 .modal__content {
-  padding: 2rem;
+  padding: 2rem 2rem 0 2rem;
 }
 .modal__actions {
   display: flex;
   justify-content: flex-end;
-  padding: 2em;
+  padding: 1em;
 }
 .modal__actions button {
   border: none;
@@ -58,6 +68,6 @@
   }
 }
 @keyframes animatetop {
-  from {top: 0; opacity: 0}
-  to {top: 20vh; opacity: 1}
+  from {top: -30vh; opacity: 0}
+  to {top: 5vh; opacity: 1}
 }

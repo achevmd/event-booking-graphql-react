@@ -17,25 +17,6 @@
   margin: 1em 0;
   text-align: center;
 }
-.form-control label,
-.form-control input {
-  display: block;
-  width: 100%;
-}
-.form-control input {
-  border-radius: 3px;
-  border: 1px solid #ccc;
-  padding: 0.7rem;
-  outline: none;
-}
-.form-control input:focus {
-  border-radius: 3px;
-  border: 1px solid #404040;
-  padding: 0.7rem;
-}
-.form-control {
-  margin-bottom: 1rem;
-}
 .form-actions button {
   background-color: #5c5c5c;
   color: #fff;
@@ -58,9 +39,4 @@
     margin: 5rem auto;
     width: 90%;
   }
-  .form-control label,
-.form-control input {
-  display: block;
-  width: 90%;
-}
 }
