@@ -3,5 +3,12 @@ import React from 'react';
 
 export default React.createContext({
   token: '',
-  userId: ''
+  userId: '',
+  email: '',
+  login: (token) => {
+
+  },
+  logout: () => {
+
+  }
 });

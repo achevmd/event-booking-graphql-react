@@ -26,9 +26,7 @@ type User {
 }
 
 type AuthData {
-  userId: ID!
   token: String!
-  tokenExpiration: Int!
 }
 
 input EventInput {

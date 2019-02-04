@@ -1,5 +1,6 @@
 .main-navigation {
   position: fixed;
+  z-index: 1;
   left: 0;
   top: 0;
   width: 100%;
@@ -33,6 +34,15 @@
   text-decoration: none;
   font-size: 20px;
   color: #ffffff;
+}
+.main-navigation__items button {
+  border: none;
+  border-radius: 3px;
+  background: #bea42f;
+  padding: 0.5em;
+  font-size: inherit;
+  letter-spacing: 1px;
+  color: #fff;
 }
 .main-navigation__items a:hover,
 .main-navigation__items a:active {
@@ -111,6 +121,21 @@
   color: #000;
   font-weight: normal;
 }
+.mobile-navigation__items button {
+  border: none;
+  border-radius: 3px;
+  background: #404040;
+  color: #bea42f;
+  padding: 0.5em;
+  font-size: inherit;
+  letter-spacing: 1px;
+}
+.mobile-navigation__items button:hover,
+.mobile-navigation__items button:active {
+  background: #404040;
+  color: #ffffff;
+}
+
 /* FOR SMALLER SCREENS */
 @media only screen and (max-width: 1000px) {
   .mobile-navigation__open-btn {

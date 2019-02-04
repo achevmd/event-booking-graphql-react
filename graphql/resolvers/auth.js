@@ -21,7 +21,7 @@ module.exports = {
       throw err;
     }
   },
-  login: async ({email, password}) => {
+  login: async ({ email, password }) => {
     const user = await User.findOne({ email });
     if (!user) {
       throw new Error('User does not exist!');
@@ -30,13 +30,9 @@ module.exports = {
     if (!isEqual) {
       throw new Error('Wrong password!');
     }
-    const token = jwt.sign({userId: user.id, email: user.email}, 'somesupersecretkey', {
+    const token = jwt.sign({ userId: user.id, email: user.email }, 'somesupersecretkey', {
       expiresIn: '1h'
     });
-    return {
-      userId: user.id,
-      token,
-      tokenExpiration: 1
-    };
+    return { token };
   }
 };

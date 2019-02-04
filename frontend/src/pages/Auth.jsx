@@ -42,8 +42,8 @@ class AuthPage extends Component {
         throw new Error('Failed!');
       }
       if (res.data.data.login.token) {
-        const { token, userId, tokenExpiration } = res.data.data.login;
-        this.context.login(token, userId, tokenExpiration);
+        const { token } = res.data.data.login;
+        this.context.login(token);
       }
     }).catch(err => {
       console.log(err);

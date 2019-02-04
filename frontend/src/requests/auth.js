@@ -5,9 +5,7 @@ export const login = (email, password) => {
     query: `
       query {
         login(email: "${email}", password: "${password}") {
-          userId
           token
-          tokenExpiration
         }
       }
     `
