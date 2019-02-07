@@ -1,4 +1,6 @@
 .events__control {
+  display: inline-block;
+  width: 85%;
   background: linear-gradient(to right, #bea42f, #f0dc6d);
   border-radius: 3px;
   box-shadow: 1px 1px 5px rgb(0, 0, 0, 0.25);
@@ -19,4 +21,36 @@
 }
 .events__control button:hover {
   background: #fdec89;
+}
+.events__sort {
+  display: inline-block;
+  width: 13%;
+  margin-left: 2%;
+  background: linear-gradient(to right, #6e6e6e, #404040);
+  border-radius: 3px;
+  box-shadow: 1px 1px 5px rgb(0, 0, 0, 0.25);
+  margin-bottom: 1em;
+}
+.events__sort select {
+  color: #fff;
+  border: none;
+  outline: none;
+  border-radius: 3px 0px 0px 3px;
+  font: inherit;
+  cursor: pointer;
+  padding: 1em 0;
+  width: 100%;
+  background: transparent;
+  transition: 0.5s;
+}
+.events__sort select:hover {
+  background: #404040;
+}
+@media (max-width: 650px) {
+  .events__sort {
+    width: 28%;
+  }
+  .events__control {
+    width: 70%
+  }
 }

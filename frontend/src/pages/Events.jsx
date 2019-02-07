@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { events, createEvent } from '../requests/events';
+import { bookEvent } from '../requests/booking';
 
 import './Events.css';
 import Modal from '../components/Modal/Modal';
@@ -38,13 +39,13 @@ class EventsPage extends Component {
         console.log(err);
         this.setState({ isLoading: false, error: true });
       });
-  }
+  };
   openCreateEventHandler = () => {
     this.setState({ isCreating: true });
-  }
+  };
   closeModalHandler = () => {
     this.setState({ isCreating: false, selectedEvent: '' });
-  }
+  };
   confirmCreateEventHandler = (formData) => {
     const { title, description, price, date } = formData;
     this.setState({ isCreating: false });
@@ -61,25 +62,41 @@ class EventsPage extends Component {
     };
     createEvent(event, token).then(res => {
       this.setState(prevState => {
+        const newEvent = res.data.data.createEvent;
+        if (!newEvent) {
+          return {
+            isCreating: true,
+            error: true
+          }
+        }
         // Appending the new event
         return {
-          events: [...prevState.events, res.data.data.createEvent]
+          events: [...prevState.events, res.data.data.createEvent],
+          error: false
         };
       });
     })
       .catch(err => {
         console.log(err);
       });
-  }
+  };
   showEventDetailsHandler = eventId => {
     this.setState(prevState => {
       const selectedEvent = prevState.events.find(e => e._id === eventId);
       return { selectedEvent: selectedEvent };
     });
-  }
-  bookEventHandler = () => {
-
-  }
+  };
+  bookEventHandler = async (eventId) => {
+    if (!this.context.token) {
+      console.log('cant');
+      return;
+    }
+    let id;
+    this.state.selectedEvent._id ? id = this.state.selectedEvent._id : id = eventId;
+    bookEvent(id).then(res => {
+      console.log(res);
+    });
+  };
   render() {
     return (
       <>
@@ -87,33 +104,48 @@ class EventsPage extends Component {
           <CreateEventModal
             onCancel={this.closeModalHandler}
             onConfirm={this.confirmCreateEventHandler}
+            error={this.state.error}
           />}
-        {this.state.selectedEvent && <Modal
-          title={this.state.selectedEvent.title}
-          canCancel
-          onCancel={this.closeModalHandler}
-        >
-          <h1>{this.state.selectedEvent.title}</h1>
-          <h2>{new Date(this.state.selectedEvent.date).toLocaleDateString()}</h2>
-          <h2>${this.state.selectedEvent.price}</h2>
-          <p>{this.state.selectedEvent.description}</p>
-        </Modal>}
-        {this.context.token && <div className="events__control">
-          <button onClick={this.openCreateEventHandler}>Create Event</button>
-          <button>My Events</button>
-        </div>}
+        {this.state.selectedEvent &&
+          <Modal
+            title={this.state.selectedEvent.title}
+            canCancel
+            onCancel={this.closeModalHandler}
+            canBook
+            onBook={this.bookEventHandler}
+          >
+            <h1>{this.state.selectedEvent.title}</h1>
+            <h2>{new Date(this.state.selectedEvent.date).toLocaleDateString()}</h2>
+            <h2>${this.state.selectedEvent.price}</h2>
+            <p>{this.state.selectedEvent.description}</p>
+          </Modal>}
+        {this.context.token &&
+          <>
+            <div className="events__control">
+              <button onClick={this.openCreateEventHandler}>Create Event</button>
+              <button>My Events</button>
+            </div>
+            {/* THIS DOES NOTHING YET */}
+            <div className="events__sort">
+              <select name="sort" id="sort">
+                <option value="recent">Recent</option>
+                <option value="popular">Popular</option>
+              </select>
+            </div>
+          </>}
         {this.state.isLoading
           ? <Spinner />
           : < EventList
             events={this.state.events}
             onDetails={this.showEventDetailsHandler}
+            onBook={this.bookEventHandler}
             authUserId={this.context.userId}
           />
         }
         {this.state.error &&
           <div className="error__message">
             <p>Could not load events.</p>
-            <button class="error__btn" onClick={this.fetchEvents}>Retry</button>
+            <button className="error__btn" onClick={this.fetchEvents}>Retry</button>
           </div>
         }
       </>

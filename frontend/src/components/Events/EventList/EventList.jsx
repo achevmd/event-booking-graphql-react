@@ -11,6 +11,7 @@ const EventList = props => (
           event={event}
           authUserId={props.authUserId}
           onDetails={props.onDetails}
+          onBook={props.onBook}
         />
       );
     })}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
+import axios from 'axios';
 import './App.css';
 
 import AuthPage from './pages/Auth'
@@ -24,6 +25,7 @@ class App extends Component {
       userId: decoded.userId
     });
     localStorage.setItem('token', token);
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   };
   logout = () => {
     this.setState({
@@ -37,10 +39,18 @@ class App extends Component {
     try {
       const decoded = jwtDecode(token);
       if (token) {
+        const {email, userId, exp : tokenExpiration} = decoded;
+        const currentTime = Date.now() / 1000;
+        // CHECKS IF TOKEN IS EXPIRED
+        if (tokenExpiration < currentTime) {
+          this.logout();
+          return;
+        }
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         this.setState({
           token,
-          email: decoded.email,
-          userId: decoded.userId
+          email,
+          userId
         });
       }
     } catch (err) {

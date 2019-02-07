@@ -39,9 +39,5 @@ export const createEvent = (event, token) => {
       }
     `
   };
-  return axios.post('http://localhost:8000/graphql', reqBody, {
-    headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  });
+  return axios.post('http://localhost:8000/graphql', reqBody);
 };

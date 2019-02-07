@@ -40,7 +40,7 @@ button {
 }
 button.red {
   background: #e06868;
-  color: white;
+  color: #fff;
 }
 button.red:hover,
 button.red:active {
@@ -64,6 +64,13 @@ button.blue:active {
 }
 
 /* ERROR */
+.error__block {
+  cursor: default;
+  text-align: center;
+  background: #e06868;
+  padding: 0.5em;
+  color: #fff;
+}
 .error__message {
   text-align: center;
   font-size: 20px;

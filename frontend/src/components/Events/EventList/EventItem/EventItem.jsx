@@ -13,7 +13,7 @@ const EventItem = (props) => (
         ? <p>You created this event!</p>
         : <>
           - or -
-        <button className="gold">Book</button>
+        <button className="gold" onClick={props.onBook.bind(this, props.event._id)}>Book</button>
         </>
       }
     </div>
