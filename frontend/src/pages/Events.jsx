@@ -93,9 +93,12 @@ class EventsPage extends Component {
     }
     let id;
     this.state.selectedEvent._id ? id = this.state.selectedEvent._id : id = eventId;
-    bookEvent(id).then(res => {
-      console.log(res);
-    });
+    try {
+      await bookEvent(id);
+      this.setState({selectedEvent: ''});
+    } catch (err) {
+      console.log(err);
+    }
   };
   render() {
     return (

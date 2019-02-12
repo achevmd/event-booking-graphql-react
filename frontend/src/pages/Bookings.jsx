@@ -16,15 +16,23 @@ class BookingsPage extends Component {
   }
   fetchBookings = async () => {
     this.setState({ isLoading: true });
-    const res = await bookings();
-    this.setState({ bookings: res.data.data.bookings, isLoading: false });
+    try {
+      const res = await bookings();
+      this.setState({ bookings: res.data.data.bookings, isLoading: false });
+    } catch (err) {
+      console.log(err);
+    }
   };
   deleteBookingHandler = async id => {
+    this.setState({ isLoading: true });
     try {
       await deleteBooking(id);
       this.setState(prevState => {
         const updatedBookings = prevState.bookings.filter(b => b._id !== id);
-        return { bookings: updatedBookings };
+        return {
+          bookings: updatedBookings,
+          isLoading: false
+        };
       });
     } catch (err) {
       console.log(err);
@@ -34,9 +42,9 @@ class BookingsPage extends Component {
     return (
       <>
         <h1>My Bookings</h1>
-        {this.state.bookings ?
-          <BookingList bookings={this.state.bookings} onDelete={this.deleteBookingHandler} />
-          : <Spinner />}
+        {this.state.isLoading ?
+          <Spinner />
+          : <BookingList bookings={this.state.bookings} onDelete={this.deleteBookingHandler} />}
       </>
     );
   }

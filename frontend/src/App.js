@@ -76,10 +76,10 @@ class App extends Component {
                   ? <Redirect path="/auth" to="/events" />
                   : <Redirect path="/" to="/auth" exact />
                 }
-                {!token && <Redirect path="/bookings" to="/auth" />}
                 <Route path="/auth" component={AuthPage} />
                 <Route path="/events" component={EventsPage} />
                 {token && <Route path="/bookings" component={BookingsPage} />}
+                {!token && <Redirect path="/bookings" to="/auth" />}
               </Switch>
             </main>
           </AuthContext.Provider>
