@@ -1,13 +1,27 @@
 import axios from 'axios';
 
-export const bookEvent = (eventId) => {
+export const bookEvent = id => {
   const reqBody = {
     query: `
       mutation {
-        bookEvent(eventId: "${eventId}") {
+        bookEvent(eventId: "${id}") {
           _id
           createdAt
           updatedAt
+        }
+      }
+    `
+  };
+  return axios.post('http://localhost:8000/graphql', reqBody);
+};
+export const deleteBooking = id => {
+  const reqBody = {
+    query: `
+      mutation {
+        cancelBooking(bookingId: "${id}") {
+          _id
+          title
+          description
         }
       }
     `

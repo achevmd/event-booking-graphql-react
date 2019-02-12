@@ -3,9 +3,11 @@ import './BookingList.css';
 import BookingItem from './BookingItem/BookingItem';
 
 const BookingList = props => (
-  props.bookings.map(booking => {
-    return <BookingItem booking={booking}/>
-  })
+  <ul className="booking__list">
+    {props.bookings.map(booking => {
+      return <BookingItem key={booking._id} booking={booking} onDelete={props.onDelete} />
+    })}
+  </ul>
 );
 
 export default BookingList;
