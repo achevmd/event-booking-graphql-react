@@ -53,14 +53,13 @@ class EventsPage extends Component {
       price <= 0 || date.trim().length === 0) {
       return;
     }
-    const token = this.context.token;
     const event = {
       title,
       description,
       date,
-      price
+      price: Number(price)
     };
-    createEvent(event, token).then(res => {
+    createEvent(event).then(res => {
       this.setState(prevState => {
         const newEvent = res.data.data.createEvent;
         if (!newEvent) {

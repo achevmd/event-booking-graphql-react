@@ -19,6 +19,7 @@ module.exports = {
       throw new Error('Unauthenticated!');
     }
     const { title, description, price, date } = args.eventInput;
+    console.log(args.eventInput);
     const event = new Event({
       title,
       description,
