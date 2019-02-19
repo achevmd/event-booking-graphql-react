@@ -8,7 +8,6 @@ const BookingItem = props => {
       <div className="booking__item-data">
         <p>{event.title}</p>
         <p>Booked on: {new Date(createdAt).toLocaleDateString()}</p>
-        <p>Booked by: {user.email}</p>
       </div>
       <div className="booking__item-actions">
         <button className="red" onClick={props.onDelete.bind(this, _id)}>Cancel Booking</button>

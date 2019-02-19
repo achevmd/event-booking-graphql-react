@@ -40,6 +40,7 @@ export const bookings = () => {
             _id
             title
             date
+            price
           }
           user {
             email

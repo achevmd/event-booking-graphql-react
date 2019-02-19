@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { bookings, deleteBooking } from '../requests/booking';
 import Spinner from '../components/Spinner/Spinner';
 import BookingList from '../components/Bookings/BookingList/BookingList';
+import BookingChart from '../components/Bookings/BookingChart/BookingChart';
+import BookingControls from '../components/Bookings/BookingControls/BookingControls';
 
 class BookingsPage extends Component {
   state = {
     bookings: [],
-    isLoading: false
+    isLoading: false,
+    outputType: 'list'
   };
   constructor(props) {
     super(props);
@@ -38,13 +41,28 @@ class BookingsPage extends Component {
       console.log(err);
     }
   };
+  // Changes what's rendered on the page
+  changeOutputHandler = outputType => {
+    if (outputType === 'list') {
+      this.setState({ outputType: 'list' });
+    } else {
+      this.setState({ outputType: 'chart' });
+    }
+  };
   render() {
+    let content = <Spinner />;
+    if (!this.state.isLoading) {
+      content = (
+        <>
+          {this.state.outputType === 'list' && <BookingList bookings={this.state.bookings} onDelete={this.deleteBookingHandler} />}
+          {this.state.outputType === 'chart' && <BookingChart bookings={this.state.bookings} />}
+        </>
+      );
+    }
     return (
       <>
-        <h1>My Bookings</h1>
-        {this.state.isLoading ?
-          <Spinner />
-          : <BookingList bookings={this.state.bookings} onDelete={this.deleteBookingHandler} />}
+        <BookingControls handleChangeOutput={this.changeOutputHandler} activeOutput={this.state.outputType} />
+        {content}
       </>
     );
   }

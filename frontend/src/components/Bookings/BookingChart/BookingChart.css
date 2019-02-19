@@ -1,4 +1,4 @@
-.booking__list {
+.booking__chart {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -8,9 +8,6 @@
   box-shadow: 1px 1px 5px rgb(0, 0, 0, 0.25);
   list-style: none;
   animation: fadeIn 1s;
-}
-.booking__list h2 {
-  text-align: center;
 }
 @keyframes fadeIn {
   from { opacity: 0;}
